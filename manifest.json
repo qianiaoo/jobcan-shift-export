@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "JobCan Schedule Exporter",
+  "version": "1.0",
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_icon": {
+      "16": "images/img.png",
+      "48": "images/img.png",
+      "128": "images/img.png"
+    },
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [{
+    "matches": ["https://ssl.jobcan.jp/employee/shift-schedule*"],
+    "js": ["contentScript.js"]
+  }]
+}
