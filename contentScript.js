@@ -13,33 +13,33 @@ function generateICS(events) {
 
 // Function to parse table data into events
 function parseScheduleTable() {
-    var events = [];
-    var rows = document.querySelectorAll('#shift-list tr');
+    const events = [];
+    const rows = document.querySelectorAll('#shift-list tr');
     rows.forEach(function(row) {
-        var columns = row.querySelectorAll('td');
+        const columns = row.querySelectorAll('td');
         if (columns.length >= 4) {
-            var dateStr = columns[0].innerText;
-            var startStr = columns[2].innerText;
-            var endStr = columns[3].innerText;
+            const dateStr = columns[0].innerText;
+            const startStr = columns[2].innerText;
+            const endStr = columns[3].innerText;
             if (startStr !== '-' && endStr !== '-') {
 
 
-                var dateParts = dateStr.split('/');
-                var month = dateParts[0];  // Extract month
-                var day = dateParts[1].split('(')[0];
-                var year = new Date().getFullYear();
+                const dateParts = dateStr.split('/');
+                const month = dateParts[0];  // Extract month
+                const day = dateParts[1].split('(')[0];
+                const year = new Date().getFullYear();
 
                 console.log('dateStr:', dateStr);
                 console.log('startStr:', startStr);
                 console.log('endStr:', endStr);
 
-                var startDate = new Date(year, month - 1, day, startStr.substr(0, 2), startStr.substr(3, 2));
-                var endDate = new Date(year, month - 1, day, endStr.substr(0, 2), endStr.substr(3, 2));
+                const startDate = new Date(year, month - 1, day, startStr.substr(0, 2), startStr.substr(3, 2));
+                const endDate = new Date(year, month - 1, day, endStr.substr(0, 2), endStr.substr(3, 2));
 
                 console.log('startDate:', startDate);
                 console.log('endDate:', endDate);
 
-                var event = {
+                const event = {
                     start: startDate.toISOString().replace(/[-:]|(\.\d{3})|T|Z/g, ''),
                     end: endDate.toISOString().replace(/[-:]|(\.\d{3})|T|Z/g, ''),
                     summary: '勤務:' + startStr + ' - ' + endStr
@@ -78,11 +78,11 @@ button.onmouseout = function() {
 }
 
 button.onclick = function() {
-    var events = parseScheduleTable();
-    var calendar = generateICS(events);
-    var blob = new Blob([calendar], {type: 'text/calendar;charset=utf-8;'});
-    var url = URL.createObjectURL(blob);
-    var link = document.createElement('a');
+    const events = parseScheduleTable();
+    const calendar = generateICS(events);
+    const blob = new Blob([calendar], {type: 'text/calendar;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
     link.href = url;
     link.download = 'schedule.ics';
     link.click();
